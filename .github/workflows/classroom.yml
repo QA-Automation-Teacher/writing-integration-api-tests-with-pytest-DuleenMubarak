@@ -19,7 +19,7 @@ jobs:
       with:
         test-name: 'Python run flask server '
         setup-command: pip install flask
-        command: flask run --port 5000 &
+        command: flask run --host=localhost --port=5000 &
         timeout: 10
     - name: Python Post Requests tests
       id: python-post-requests-tests
