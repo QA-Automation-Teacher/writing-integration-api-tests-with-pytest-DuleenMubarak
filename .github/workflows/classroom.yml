@@ -13,16 +13,16 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Python Test
-      id: python-test
+    - name: Python Test Posts Requests
+      id: python-test-posts-requests
       uses: classroom-resources/autograding-python-grader@v1
       with:
         timeout: 10
-        max-score: 5
+        max-score: 100
         setup-command: pip install pytest requests pytest-html
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        PYTHON-TEST_RESULTS: "${{steps.python-test.outputs.result}}"
+        PYTHON-TEST-POSTS-REQUESTS_RESULTS: "${{steps.python-test-posts-requests.outputs.result}}"
       with:
-        runners: python-test
+        runners: python-test-posts-requests
