@@ -13,16 +13,25 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Python Test Posts Requests
-      id: python-test-posts-requests
+    - name: 'Python run flask server '
+      id: python-run-flask-server
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: 'Python run flask server '
+        setup-command: pip install flask
+        command: flask run --port 5000 &
+        timeout: 10
+    - name: Python Post Requests tests
+      id: python-post-requests-tests
       uses: classroom-resources/autograding-python-grader@v1
       with:
         timeout: 10
         max-score: 100
-        setup-command: pip install pytest requests pytest-html
+        setup-command: pip install pytest requests
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        PYTHON-TEST-POSTS-REQUESTS_RESULTS: "${{steps.python-test-posts-requests.outputs.result}}"
+        PYTHON-RUN-FLASK-SERVER_RESULTS: "${{steps.python-run-flask-server.outputs.result}}"
+        PYTHON-POST-REQUESTS-TESTS_RESULTS: "${{steps.python-post-requests-tests.outputs.result}}"
       with:
-        runners: python-test-posts-requests
+        runners: python-run-flask-server,python-post-requests-tests
