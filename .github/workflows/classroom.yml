@@ -19,8 +19,8 @@ jobs:
       with:
         timeout: 10
         max-score: 100
-        setup-command: 'pip install pytest requests; cd src; flask run --host=localhost
-          --port=5000 & '
+        setup-command: pip install pytest requests; cd ./src; flask run --host=localhost
+          --port=5000 & ; cd ../tests
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
